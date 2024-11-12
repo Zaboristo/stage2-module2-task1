@@ -13,24 +13,21 @@ import com.example.User;
 public class AddUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/add.jsp").forward(req, resp);
+        req.getRequestDispatcher("jsp/add.jsp").forward(req, resp);
     }
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         User user = new User(firstName, lastName);
 
-        // Assuming Warehouse is a class responsible for managing users
-        // Save the user in the Warehouse or perform relevant operations
         Warehouse instance = Warehouse.getInstance();
         instance.addUser(user);
 
-        // Set user attribute to be used in the add.jsp page
-        request.setAttribute("user", firstName + " " + lastName);
+        request.setAttribute("user", user);
 
-        // Forward back to the "add" page
-        request.getRequestDispatcher("/add.jsp").forward(request, response);
+        request.getRequestDispatcher("jsp/add.jsp").forward(request, response);
     }
-    //write your code here!
+
 }
